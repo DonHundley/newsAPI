@@ -12,11 +12,8 @@
           uses: actions/setup-dotnet@v3
           with:
             dotnet-version: |
-              8.0.x
-        - name: Get tests
-          run: git clone https://github.com/uldahlalex/newsapitests
-          
+              8.0.x  
         - name: Run, test and shutdown
-          run: cd api && dotnet run & (sleep 30 && newsapitests && dotnet test) && kill -9 $(lsof -t -i:5000)
+          run: cd api && dotnet run & (sleep 30 && cd .. && cd newsapitests && dotnet test) && kill -9 $(lsof -t -i:5000)
           env:
             pgconn: ${{secrets.PGCONN}}
