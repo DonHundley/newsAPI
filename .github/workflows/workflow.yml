@@ -2,7 +2,7 @@
     push:
       branches:
         - main
-    workflow_dispatch:         
+    workflow_dispatch:   
   jobs:
     workflow:
       runs-on: ubuntu-latest
