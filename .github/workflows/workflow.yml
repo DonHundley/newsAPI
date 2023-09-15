@@ -17,9 +17,9 @@
             dotnet-version: |
               8.0.x  
         - name: Check env variable
+          run: echo $pgconn
           env:
             pgconn: ${{secrets.PGCONN}}
-          run: echo $pgconn
         - name: Run, test and shutdown
           run: cd api && dotnet run & (sleep 30 && cd newsapitests && dotnet test) && kill -9 $(lsof -t -i:5000)
           
