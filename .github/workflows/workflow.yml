@@ -14,7 +14,6 @@
             dotnet-version: |
               8.0.x  
         - name: Run, test and shutdown
+          run: cd api && dotnet run & (sleep 30 && cd newsapitests && dotnet test) && kill -9 $(lsof -t -i:5000)
           env:
             pgconn: ${{secrets.PGCONN}}
-          run: cd api && dotnet run & (sleep 30 && cd newsapitests && dotnet test) && kill -9 $(lsof -t -i:5000)
-          
