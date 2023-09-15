@@ -4,8 +4,7 @@
         - main
     workflow_dispatch:
 
-  env:
-    pgconn: ${{secrets.PGCONN}}
+  
             
   jobs:
     workflow:
@@ -17,6 +16,10 @@
           with:
             dotnet-version: |
               8.0.x  
+        - name: Check env variable
+          env:
+            pgconn: ${{secrets.PGCONN}}
+          run: if [ -v pgconn]; then echo "variable is set" && else echo "variable not set" && fi
         - name: Run, test and shutdown
           run: cd api && dotnet run & (sleep 30 && cd newsapitests && dotnet test) && kill -9 $(lsof -t -i:5000)
           
