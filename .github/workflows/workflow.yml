@@ -1,0 +1,22 @@
+  on:
+    push:
+      branches:
+        - main
+    workflow_dispatch:
+  jobs:
+    workflow:
+      runs-on: ubuntu-latest
+      steps:
+        - uses: actions/checkout@v3
+        - name: Setup dotnet
+          uses: actions/setup-dotnet@v3
+          with:
+            dotnet-version: |
+              8.0.x
+        - name: Get tests
+          run: git clone https://github.com/uldahlalex/newsapitests
+          
+        - name: Run, test and shutdown
+          run: cd api && dotnet run & (sleep 30 && newsapitests && dotnet test) && kill -9 $(lsof -t -i:5000)
+          env:
+            pgconn: ${{secrets.PGCONN}}
