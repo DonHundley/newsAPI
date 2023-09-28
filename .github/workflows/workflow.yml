@@ -1,3 +1,4 @@
+  
   on:
     push:
       branches:
@@ -13,6 +14,10 @@
           with:
             dotnet-version: |
               8.0.x  
+              
+        - name: Get tests
+          run: git clone https://github.com/udahlalex/newsapitests
+      
         - name: Run, test and shutdown
           run: cd api && dotnet run & (sleep 30 && cd newsapitests && dotnet test) && kill -9 $(lsof -t -i:5000)
           env:
