@@ -9,7 +9,7 @@ import { MessageService} from "./message.service";
 })
 export class NewsService {
 
-  private newsAPI = '../api';
+  private newsAPI = 'http://localhost:5000';
 
   httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
@@ -35,18 +35,19 @@ export class NewsService {
   constructor(private http: HttpClient, private messageService: MessageService) { }
 
   getArticle(id: number): Observable<Article>{
-    const url = `${this.newsAPI}/${id}`;
+    const url = `${this.newsAPI}/api/articles/${id}`;
     return this.http.get<Article>(url).pipe(
-      tap(_ => this.log(`fetched hero id=${id}`)),
+      tap(_ => this.log(`fetched article id=${id}`)),
       catchError(this.handleError<Article>(`getArticle id=${id}`))
     );
   }
 
   getArticles(): Observable<Article[]>{
-    return this.http.get<Article[]>(this.newsAPI)
+    const url = `${this.newsAPI}/api/feed`
+    return this.http.get<Article[]>(url)
       .pipe(
         tap(_ => this.log('fetched articles')),
-        catchError(this.handleError<Article[]>('getArtciles', []))
+        catchError(this.handleError<Article[]>('getArticles', []))
       );
   }
 

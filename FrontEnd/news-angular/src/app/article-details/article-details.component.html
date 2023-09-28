@@ -1,1 +1,12 @@
-<p>article-details works!</p>
+<div *ngIf="article">
+  <h2>{{article.headline | uppercase}} Details</h2>
+  <div><span>id:  </span>{{article.id}}</div>
+  <div><span>Author: </span>{{article.author}}</div>
+  <div>
+    <label for="article-body">Article: </label>
+    <input id="article-body" [(ngModel)]="article.body" placeholder="body">
+  </div>
+  <div><span></span>{{article.imgUrl}}</div>
+  <button type="button" (click)="save()">save</button>
+  <button type="button" (click)="goBack()">go back</button>
+</div>

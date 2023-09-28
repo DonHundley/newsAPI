@@ -1,0 +1,33 @@
+<h2>All Articles</h2>
+<div>
+  <label for="new-headline">Article title: </label>
+  <input id="new-headline" #headline />
+
+
+  <label for="new-author">Author: </label>
+  <input id="new-author" #author />
+
+
+  <label for="new-body">Article body: </label>
+  <input id="new-body" #body />
+
+
+
+  <label for="new-imgUrl">Article Image Url: </label>
+  <input id="new-imgUrl" #imgUrl />
+
+
+  <button type="button" class="add-button" (click)="add(headline.value, author.value, body.value, imgUrl.value);  ">
+    Add Article
+  </button>
+</div>
+<ul class="articles">
+  <li *ngFor="let article of articles">
+    <a routerLink="/detail/{{article.id}}">
+      <span class="badge">{{article.id}}</span> {{article.headline}}
+    </a>
+    <button type="button" class="delete" title="delete article"
+            (click)="delete(article)">X</button>
+
+  </li>
+</ul>
